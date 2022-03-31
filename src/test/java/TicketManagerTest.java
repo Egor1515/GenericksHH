@@ -62,12 +62,12 @@ class TicketManagerTest {
         manager.save(second);
 
         TicketInfo ticket = new TicketInfo();
-        TicketInfo[] expected = { first, second,third};
-        TicketInfo[] actual = {third,second,first};
+        TicketInfo[] expected = {first, second, third};
+        TicketInfo[] actual = {third, second, first};
 
         Arrays.sort(actual);
 
-        assertArrayEquals(expected,actual);
+        assertArrayEquals(expected, actual);
 
 
     }
