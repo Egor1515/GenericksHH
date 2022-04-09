@@ -12,7 +12,7 @@ class TicketManagerTest {
     TicketInfo third = new TicketInfo(3, 3200, "VVO", "VKO", 200);
     TicketInfo forth = new TicketInfo(4, 4200, "VVO", "KHV", 200);
     TicketInfo fifth = new TicketInfo(5, 5200, "VVO", "KRR", 200);
-    TicketInfo seventh = new TicketInfo(3, 3200, "VVO", "VKO", 200);
+    TicketInfo seventh = new TicketInfo(3, 2300, "VVO", "VKO", 200);
 
 
     @Test
@@ -31,11 +31,13 @@ class TicketManagerTest {
 
     @Test
     void shouldSearchDep() {
-        manager.save(first);
-        manager.save(second);
+        manager.save(seventh);
         manager.save(third);
-        TicketInfo[] expected = {second, third};
+        manager.save(second);
+
+        TicketInfo[] expected = {seventh, third};
         TicketInfo[] actual = manager.searchByAll("VVO", "VKO");
+        Arrays.sort(actual);
 
         assertArrayEquals(expected, actual);
     }
