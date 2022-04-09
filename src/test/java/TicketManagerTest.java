@@ -7,11 +7,12 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 class TicketManagerTest {
 
     TicketManager manager = new TicketManager();
-    TicketInfo first = new TicketInfo(1, 100, "VVO", "DME", 200);
-    TicketInfo second = new TicketInfo(2, 200, "VVO", "VKO", 200);
-    TicketInfo third = new TicketInfo(3, 300, "VVO", "LED", 200);
-    TicketInfo forth = new TicketInfo(4, 400, "VVO", "KHV", 200);
-    TicketInfo fifth = new TicketInfo(5, 500, "VVO", "KRR", 200);
+    TicketInfo first = new TicketInfo(1, 1110, "VVO", "DME", 200);
+    TicketInfo second = new TicketInfo(2, 2200, "VVO", "DME", 200);
+    TicketInfo third = new TicketInfo(3, 3200, "VVO", "VKO", 200);
+    TicketInfo forth = new TicketInfo(4, 4200, "VVO", "KHV", 200);
+    TicketInfo fifth = new TicketInfo(5, 5200, "VVO", "KRR", 200);
+    TicketInfo seventh = new TicketInfo(3, 3200, "VVO", "VKO", 200);
 
 
     @Test
@@ -19,8 +20,9 @@ class TicketManagerTest {
         manager.save(first);
         manager.save(second);
         manager.save(third);
-        TicketInfo[] expected = {first};
-        TicketInfo[] actual = manager.searchByAtaAr("DME");
+        TicketInfo[] expected = {first,second};
+        TicketInfo[] actual = manager.searchByAll("VVO", "DME");
+        Arrays.sort(actual);
 
         assertArrayEquals(expected, actual);
 
@@ -32,19 +34,21 @@ class TicketManagerTest {
         manager.save(first);
         manager.save(second);
         manager.save(third);
-        TicketInfo[] expected = {first, second, third};
-        TicketInfo[] actual = manager.searchByDeparture("VVO");
+        TicketInfo[] expected = {second, third};
+        TicketInfo[] actual = manager.searchByAll("VVO", "VKO");
 
         assertArrayEquals(expected, actual);
     }
 
     @Test
     void shouldDisplay() {
-        manager.save(fifth);
-        manager.save(first);
 
-        TicketInfo[] expected = {first};
-        assertArrayEquals(expected, manager.findAll("VVO", "DME"));
+        manager.save(first);
+        manager.save(forth);
+        manager.save(fifth);
+
+        TicketInfo[] expected = {forth};
+        assertArrayEquals(expected, manager.findAll("VVO", "KHV"));
     }
 
     @Test
@@ -59,13 +63,15 @@ class TicketManagerTest {
     @Test
     void shouldCompare() {
         manager.save(first);
+        manager.save(third);
         manager.save(second);
+        manager.save(fifth);
+        manager.save(forth);
 
-        TicketInfo ticket = new TicketInfo();
-        TicketInfo[] expected = {first, second, third};
-        TicketInfo[] actual = {third, second, first};
-
+        TicketInfo[] expected = {first, second, third, forth, fifth};
+        TicketInfo[] actual = {first, third, second, fifth, forth};
         Arrays.sort(actual);
+
 
         assertArrayEquals(expected, actual);
 
