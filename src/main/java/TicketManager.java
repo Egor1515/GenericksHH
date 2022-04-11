@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class TicketManager {
 
     private TicketInfo[] tickets = new TicketInfo[0];
@@ -10,6 +12,8 @@ public class TicketManager {
         int lastIndex = tmp.length - 1;
         tmp[lastIndex] = ticket;
         tickets = tmp;
+        Arrays.sort(tickets);
+
 
     }
 

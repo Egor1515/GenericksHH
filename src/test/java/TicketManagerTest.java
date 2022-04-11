@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 class TicketManagerTest {
 
     TicketManager manager = new TicketManager();
-    TicketInfo first = new TicketInfo(1, 1110, "VVO", "DME", 200);
+    TicketInfo first = new TicketInfo(1, 110, "VVO", "DME", 200);
     TicketInfo second = new TicketInfo(2, 2200, "VVO", "DME", 200);
     TicketInfo third = new TicketInfo(3, 3200, "VVO", "VKO", 200);
     TicketInfo forth = new TicketInfo(4, 4200, "VVO", "KHV", 200);
@@ -17,12 +17,12 @@ class TicketManagerTest {
 
     @Test
     void shouldSearchATA() {
-        manager.save(first);
         manager.save(second);
+        manager.save(first);
         manager.save(third);
-        TicketInfo[] expected = {first,second};
+        TicketInfo[] expected = {first, second};
         TicketInfo[] actual = manager.searchByAll("VVO", "DME");
-        Arrays.sort(actual);
+
 
         assertArrayEquals(expected, actual);
 
@@ -71,8 +71,7 @@ class TicketManagerTest {
         manager.save(forth);
 
         TicketInfo[] expected = {first, second, third, forth, fifth};
-        TicketInfo[] actual = {first, third, second, fifth, forth};
-        Arrays.sort(actual);
+        TicketInfo[] actual = manager.findAll();
 
 
         assertArrayEquals(expected, actual);
